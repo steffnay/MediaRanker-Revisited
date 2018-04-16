@@ -9,46 +9,79 @@ describe WorksController do
       must_respond_with :success
 
     end
+
+
+    it "succeeds with one media type absent" do
+      # Precondition: there is at least one media in two of the categories
+      book = works(:poodr)
+      book.delete
+
+      Work.all.count.must_equal 3
+      get root_path
+      must_respond_with :success
+    end
+
+    it "succeeds with no media" do
+      works(:poodr).destroy
+      works(:album).destroy
+      works(:another_album).destroy
+      works(:movie).destroy
+
+      Work.all.count.must_equal 0
+      get root_path
+      must_respond_with :success
+
+    end
   end
-#
-#     it "succeeds with one media type absent" do
-#       # Precondition: there is at least one media in two of the categories
-#
-#     end
-#
-#     it "succeeds with no media" do
-#
-#     end
-#   end
-#
-#   CATEGORIES = %w(albums books movies)
-#   INVALID_CATEGORIES = ["nope", "42", "", "  ", "albumstrailingtext"]
-#
-#   describe "index" do
-#     it "succeeds when there are works" do
-#
-#     end
-#
-#     it "succeeds when there are no works" do
-#
-#     end
-#   end
-#
-#   describe "new" do
-#     it "succeeds" do
-#
-#     end
-#   end
-#
-#   describe "create" do
-#     it "creates a work with valid data for a real category" do
-#
-#     end
-#
-#     it "renders bad_request and does not update the DB for bogus data" do
-#
-#     end
-#
+
+  CATEGORIES = %w(albums books movies)
+  INVALID_CATEGORIES = ["nope", "42", "", "  ", "albumstrailingtext"]
+
+  describe "index" do
+    it "succeeds when there are works" do
+
+      get works_path
+      must_respond_with :success
+
+    end
+
+
+    it "succeeds when there are no works" do
+      works(:poodr).destroy
+      works(:album).destroy
+      works(:another_album).destroy
+      works(:movie).destroy
+
+      get works_path
+      must_respond_with :success
+    end
+  end
+
+  describe "new" do
+    it "succeeds" do
+
+      get new_work_path
+      must_respond_with :success
+
+    end
+  end
+
+  describe "create" do
+    it "creates a work with valid data for a real category" do
+
+      proc {
+        post works_path, params: { work: { title: "New Things", category: "album", creator: "Gucci Mane" } }
+      }.must_change 'Work.count', 1
+
+    end
+
+    it "renders bad_request and does not update the DB for bogus data" do
+      post works_path, params: { work: { title: "", category: "album", creator: "Gucci Mane" } }
+
+        must_respond_with :bad_request
+        Work.all.count.must_equal 4
+    end
+  end
 #     it "renders 400 bad_request for bogus categories" do
 #
 #     end
@@ -80,7 +113,7 @@ describe WorksController do
 #
 #     end
 #
-#     it "renders bad_request for bogus data" do
+#     it "renders not_found for bogus data" do
 #
 #     end
 #
