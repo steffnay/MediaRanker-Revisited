@@ -53,7 +53,7 @@ Following the steps in the Textbook curriculum, add OAuth to your Media Ranker A
 - All other requirements from in-class notes apply:
   - Managed via `session`
   - `SessionsController`
-  - `User` model -->
+  - `User` model
 
 
 ## Wave 3: Basic Authorization (Page Access)
