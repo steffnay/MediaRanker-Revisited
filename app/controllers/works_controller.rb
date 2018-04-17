@@ -8,6 +8,7 @@ class WorksController < ApplicationController
     @books = Work.best_books
     @movies = Work.best_movies
     @best_work = Work.order(vote_count: :desc).first
+
   end
 
   def index
