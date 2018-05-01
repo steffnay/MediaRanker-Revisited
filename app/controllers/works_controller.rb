@@ -2,7 +2,7 @@ class WorksController < ApplicationController
   # We should always be able to tell what category
   # of work we're dealing with
   before_action :category_from_work, except: [:root, :index, :new, :create]
-  before_action :authentication, except: [:root]
+  skip_before_action :authentication, :only => [:root]
 
   def root
     @albums = Work.best_albums

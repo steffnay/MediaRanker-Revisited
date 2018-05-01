@@ -214,4 +214,16 @@ describe WorksController do
       end
     end
   end
+
+  describe "guest users" do
+
+    describe "index" do
+      it "cannot be accessed" do
+
+        get works_path
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+
+      end
+
 end
