@@ -1,4 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+dan:
+  provider: github
+  uid: 12345
+  username: danner
 
 ada:
   provider: github

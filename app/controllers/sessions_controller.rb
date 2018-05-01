@@ -1,6 +1,7 @@
+require "pry"
 class SessionsController < ApplicationController
   skip_before_action :authentication
-  
+
   def login_form
   end
 
