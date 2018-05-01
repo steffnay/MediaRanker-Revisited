@@ -223,7 +223,66 @@ describe WorksController do
         get works_path
         must_respond_with :redirect
         flash[:result_text].must_equal "You must be logged in to see that page!"
-
       end
+    end
+
+    describe "new" do
+      it "cannot be accessed" do
+
+        get new_work_path
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+      end
+    end
+
+    describe "create" do
+      it "cannot be accessed" do
+
+        post works_path
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+      end
+    end
+
+    describe "edit" do
+      it "cannot be accessed" do
+        work = works(:poodr)
+
+        get edit_work_path(work.id)
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+      end
+    end
+
+    describe "destroy" do
+      it "cannot be accessed" do
+        work = works(:poodr)
+
+        delete work_path(work.id)
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+      end
+    end
+
+    describe "upvote" do
+      it "cannot be accessed" do
+        work = works(:poodr)
+
+        post upvote_path(work.id)
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+      end
+    end
+
+    describe "update" do
+      it "cannot be accessed" do
+        work = works(:poodr)
+
+        put work_path(work.id)
+        must_respond_with :redirect
+        flash[:result_text].must_equal "You must be logged in to see that page!"
+      end
+    end
+  end
 
 end

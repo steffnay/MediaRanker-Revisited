@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authentication
-    if @login_user == nil
+
+    unless @login_user
       flash[:result_text] = "You must be logged in to see that page!"
       redirect_to root_path
     end
